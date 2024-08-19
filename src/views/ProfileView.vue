@@ -1,10 +1,12 @@
 <template>
   <div class="card">
-    <router-link to="/list">List</router-link>
-    <h3>
-      {{ $route.params.id }}'s images ({{ pager.total }}):
+    <div class="profile-id">
+      <router-link to="/list">List</router-link>
+      <h3>{{ $route.params.id }}'s images ({{ pager.total }}):</h3>
+    </div>
+    <div class="controllers">
       <button @click="exportCSV">Generate JSON file</button>
-    </h3>
+    </div>
     <hr />
     <div class="pager">
       <ul>
@@ -40,7 +42,10 @@
     </div>
     <hr />
     <div class="album" v-if="queue.length">
-      <h5>Queue: <button @click="deleteAll">Delete All</button></h5>
+      <h5>
+        Queue ({{ queue.length }}):
+        <button @click="deleteAll">Delete All</button>
+      </h5>
       <ul>
         <li v-for="(item, index) in queue" :key="index">
           <img
@@ -151,6 +156,16 @@ export default {
 </script>
 
 <style scoped>
+div.profile-id {
+  width: 50%;
+  text-align: left;
+  display: inline-block;
+}
+div.controllers {
+  width: 50%;
+  text-align: right;
+  display: inline-block;
+}
 div.album {
   width: 100%;
   max-width: 1200px;
@@ -178,8 +193,25 @@ div.album ul li img:hover {
 }
 div.pager {
   width: 100%;
-  margin: 20px 0;
+  margin: 0;
   text-align: center;
+  display: inline-block;
+}
+div.pager strong {
+  border-radius: 3px;
+  color: #ccc;
+  background-color: #333;
+  padding: 10px 20px;
+}
+div.pager a {
+  border-radius: 3px;
+  text-decoration: none;
+  color: #999;
+  padding: 10px 20px;
+}
+div.pager a:hover {
+  color: #ccc;
+  background-color: #333;
 }
 div.pager ul {
   margin: 0;
@@ -191,7 +223,7 @@ div.pager ul li {
   margin: 0;
   font-size: 10pt;
   font-weight: 600;
-  padding: 5px 10px;
+  padding: 5px 1px;
 }
 div.pager ul li:hover {
   background-color: #f0f0f0;
