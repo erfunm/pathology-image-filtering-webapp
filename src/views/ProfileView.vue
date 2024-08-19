@@ -5,6 +5,7 @@
       {{ $route.params.id }}'s images:
       <button @click="exportCSV">Update CSV File (Keep Images Only)</button>
     </h3>
+    <hr />
     <div class="pager">
       <ul>
         <li v-if="pager.prev">
@@ -25,6 +26,7 @@
         </li>
       </ul>
     </div>
+    <hr />
     <div class="album" v-if="data">
       <ul>
         <li v-for="(item, index) in SortList(data)" :key="index">
@@ -36,6 +38,7 @@
         </li>
       </ul>
     </div>
+    <hr />
     <div class="album" v-if="queue.length">
       <h5>Queue: <button @click="deleteAll">Delete All</button></h5>
       <ul>
