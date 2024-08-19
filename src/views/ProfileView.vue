@@ -5,7 +5,7 @@
       <h3>{{ $route.params.id }}'s images ({{ pager.total }}):</h3>
     </div>
     <div class="controllers">
-      <button @click="exportCSV">Generate JSON file</button>
+      <button @click="exportCSV">{{ exportBtnTxt }}</button>
     </div>
     <hr />
     <div class="pager">
@@ -44,7 +44,7 @@
     <div class="album" v-if="queue.length">
       <h5>
         Queue ({{ queue.length }}):
-        <button @click="deleteAll">Delete All</button>
+        <button @click="deleteAll">{{ deleteBtnTxt }}</button>
       </h5>
       <ul>
         <li v-for="(item, index) in queue" :key="index">
@@ -69,7 +69,9 @@ export default {
     return {
       data: null,
       queue: [],
-      pager: {}
+      pager: {},
+      exportBtnTxt: 'Generate JSON file',
+      deleteBtnTxt: 'Delete all'
     }
   },
   mounted() {
@@ -86,6 +88,7 @@ export default {
         ) // Replace with your actual endpoint
         this.data = response.data.content.list
         this.pager = response.data.content.pager
+        this.deleteBtnTxt = 'Delete all'
       } catch (error) {
         console.error('Error fetching data:', error)
         // Handle errors gracefully (e.g., show an error message to the user)
@@ -103,9 +106,11 @@ export default {
     },
     async deleteAll() {
       try {
+        this.deleteBtnTxt = 'Please wait...'
         await Promise.all(
           this.queue.map((imageName) => this.doDelete(imageName))
         )
+        this.deleteBtnTxt = 'Done.'
         this.queue = []
         this.fetchData()
       } catch (error) {
@@ -115,11 +120,15 @@ export default {
     },
     async exportCSV() {
       try {
-        return await api.get(
-          `/content/profile/${this.$route.params.id}/export-csv`
-        )
+        this.exportBtnTxt = 'Please wait...'
+        await api.get(`/content/profile/${this.$route.params.id}/export-csv`)
+        this.exportBtnTxt = 'Done.'
+        setTimeout(() => {
+          this.exportBtnTxt = 'Generate JSON file'
+        }, 2000)
       } catch (error) {
         console.error('Error deleting data:', error)
+        this.exportBtnTxt = 'Error!'
         // Handle errors gracefully (e.g., show an error message to the user)
       }
     },
