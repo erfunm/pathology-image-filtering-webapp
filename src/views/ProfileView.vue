@@ -2,7 +2,7 @@
   <div class="card">
     <router-link to="/list">List</router-link>
     <h3>
-      {{ $route.params.id }}'s images:
+      {{ $route.params.id }}'s images ({{ pager.total }}):
       <button @click="exportCSV">Generate JSON file</button>
     </h3>
     <hr />
