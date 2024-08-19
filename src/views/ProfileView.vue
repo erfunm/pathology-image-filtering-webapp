@@ -29,7 +29,7 @@
     <hr />
     <div class="album" v-if="data">
       <ul>
-        <li v-for="(item, index) in SortList(data)" :key="index">
+        <li v-for="(item, index) in SortList(data) | filterQueue" :key="index">
           <img
             crossorigin="anonymous | use-credentials"
             :src="GetImageSrc(item)"
@@ -137,6 +137,11 @@ export default {
         this.queue = this.queue.filter((item) => item !== imageName)
         this.data.push(imageName)
       }
+    }
+  },
+  filters: {
+    filterQueue(list) {
+      return list.filter((item) => !this.queue.includes(item))
     }
   },
   watch: {
