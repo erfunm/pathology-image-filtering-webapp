@@ -29,7 +29,7 @@
     <hr />
     <div class="album" v-if="data">
       <ul>
-        <li v-for="(item, index) in SortList(data) | filterQueue" :key="index">
+        <li v-for="(item, index) in SortList(FilterQueue(data))" :key="index">
           <img
             crossorigin="anonymous | use-credentials"
             :src="GetImageSrc(item)"
@@ -81,7 +81,6 @@ export default {
         ) // Replace with your actual endpoint
         this.data = response.data.content.list
         this.pager = response.data.content.pager
-        console.log('pager:', this.pager)
       } catch (error) {
         console.error('Error fetching data:', error)
         // Handle errors gracefully (e.g., show an error message to the user)
@@ -125,6 +124,9 @@ export default {
     SortList(list) {
       return list.sort((a, b) => a.localeCompare(b))
     },
+    FilterQueue(list) {
+      return list.filter((item) => !this.queue.includes(item))
+    },
     AddToQueue(imageName) {
       if (!this.queue) {
         this.queue = []
@@ -137,11 +139,6 @@ export default {
         this.queue = this.queue.filter((item) => item !== imageName)
         this.data.push(imageName)
       }
-    }
-  },
-  filters: {
-    filterQueue(list) {
-      return list.filter((item) => !this.queue.includes(item))
     }
   },
   watch: {
