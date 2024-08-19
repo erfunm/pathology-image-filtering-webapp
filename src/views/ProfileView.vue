@@ -181,14 +181,24 @@ div.album ul {
 div.album ul li {
   display: inline-block;
   margin: 0 4px 0 0;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  background-color: rgba(200, 200, 200, 0.5);
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 div.album ul li img {
   width: 100px;
   height: 100px;
 }
-div.album ul li img:hover {
-  border: 2px solid #333;
+div.album ul li:hover {
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+div.album ul li:active {
+  border: 2px solid #c33;
   cursor: pointer;
 }
 div.pager {
