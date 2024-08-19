@@ -3,7 +3,7 @@
     <router-link to="/list">List</router-link>
     <h3>
       {{ $route.params.id }}'s images:
-      <button @click="exportCSV">Update CSV File (Keep Images Only)</button>
+      <button @click="exportCSV">Generate JSON file</button>
     </h3>
     <hr />
     <div class="pager">
