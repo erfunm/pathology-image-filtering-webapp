@@ -110,6 +110,7 @@ export default {
         await Promise.all(
           this.queue.map((imageName) => this.doDelete(imageName))
         )
+        this.exportCSV()
         this.deleteBtnTxt = 'Done.'
         this.queue = []
         this.fetchData()
