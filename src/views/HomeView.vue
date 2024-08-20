@@ -1,5 +1,6 @@
 <template>
-  <h1>Welcome to the Home Page!</h1>
+  <h1>Welcome!</h1>
+  <router-link to="/list">View Profiles</router-link>
 </template>
 
 <script>
